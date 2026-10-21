@@ -1,0 +1,19 @@
+name: Python CI Pipeline
+# Запускаю перевірку для push і PR у main.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout завантажує файли поточного коміту.
+      - uses: actions/checkout@v4
+      # Однакова версія Python робить перевірку відтворюваною.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run unit tests
+        run: python -m unittest -v test_app.py
